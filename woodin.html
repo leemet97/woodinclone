@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>우딘</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        list-style: none;
+        color: #222;
+      }
+      body {
+        margin: 0;
+        background-color: antiquewhite;
+        overflow-x: hidden;
+      }
+
+      .content {
+        width: 70%;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 30px;
+      }
+      nav {
+        width: 70%;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        z-index: 9999;
+      }
+      nav .logo {
+        width: 20%;
+        padding-bottom: 20px;
+        font-size: 50px;
+      }
+      nav .menus {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        margin-left: 220px;
+      }
+      .menus button {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+        gap: 30px;
+        background-color: transparent;
+        border: none;
+      }
+      section {
+        width: 100%;
+        position: relative;
+      }
+      .mainBox1 {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        left: 0;
+      }
+
+      .mainBox1 img {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        margin: 0 10px auto;
+        transform: scaleX(0);
+        transition: all 0.6s linear;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+      .mainBox1.on img {
+        transform: scaleX(1);
+      }
+      .mainBox1 .mainText {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 30%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        font-size: 70px;
+        font-weight: lighter;
+        color: white;
+        text-align: center;
+        z-index: 10;
+        opacity: 0;
+        transition: all 0.9s linear;
+      }
+      .mainBox1 .mainText.on {
+        transform: translateY(10%);
+        opacity: 1;
+      }
+      .container {
+        position: absolute;
+        top: 50px;
+        width: 400px;
+        height: 700px;
+      }
+      .contents {
+        display: none;
+      }
+
+      #modalBox {
+        width: 400px;
+        height: 700px;
+        background-color: rgb(220, 228, 228);
+        position: absolute;
+        top: 0px;
+        display: none;
+        left: 0px;
+        padding: 20px;
+        margin: 50px;
+        border-radius: 10px;
+        z-index: 100;
+      }
+      #modalBox.on {
+        display: block;
+      }
+      #modalBox .modalText {
+        height: 250px;
+        /* background-color: rgb(220, 228, 228); */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* margin: 100px; */
+      }
+      #modalBox .modalText div {
+        width: 180px;
+        height: 30px;
+        border: 0.3s solid lightgrey;
+        background-color: rgb(127, 183, 183);
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 100px;
+        font-size: 20px;
+      }
+      #modalBox .modalText h1 {
+        height: 90px;
+        font-size: 75px;
+        font-weight: lighter;
+      }
+      #modalBox .modalText h5 {
+        margin: 50px;
+      }
+
+      #modalBox .modalhouse {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      #modalBox .modalhouse img {
+        width: 100%;
+        height: 250px;
+        border-radius: 10px;
+        margin-top: 100px;
+      }
+      #modalBox .modalhouse button {
+        width: 40px;
+        height: 28px;
+        background-color: lightslategray;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-left: 350px;
+        margin-top: 10px;
+      }
+      .container {
+        position: absolute;
+        top: 50px;
+        width: 400px;
+        height: 700px;
+      }
+      .contents {
+        display: none;
+      }
+      /*두번째 섹션*/
+
+      #section2 {
+        padding: 120px 0;
+        background: #f6efe4;
+      }
+
+      #section2 .sec2outBox {
+        width: 85%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 100px;
+      }
+
+      .sec2leftBox {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .sec2leftBox h4,
+      .sec2leftBox h1,
+      .sec2leftBox h3 {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .sec2leftBox .on2 {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .sec2leftBox h4 {
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+      }
+
+      .sec2leftBox h1 {
+        font-size: 56px;
+        font-weight: 300;
+        line-height: 1.15;
+      }
+
+      .sec2leftBox h3 {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #666;
+        margin-top: 40px;
+      }
+
+      .sec2rightBox {
+        width: 55%;
+        height: 480px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .sec2Img {
+        width: 92%;
+        height: 92%;
+        border-radius: 10px;
+        overflow: hidden;
+        transform: scale(0.9);
+        transition: transform 0.8s ease;
+      }
+
+      .sec2Img.on2 {
+        transform: scale(1);
+      }
+
+      .sec2Img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .sec2Img .rightText {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 20px;
+        line-height: 80px;
+        padding-left: 20px;
+      }
+
+      /* section3 GRID PRODUCTS */
+      /* =====================
+   SECTION 3
+===================== */
+
+      #section3 {
+        width: 100%;
+        padding: 140px 0;
+        background: #fff;
+      }
+
+      .sec3Wrap {
+        width: 85%;
+        margin: 0 auto;
+      }
+
+      .sec3Center {
+        position: static;
+
+        text-align: center;
+        width: 36%;
+        margin-bottom: 120px;
+      }
+
+      .sec3Center .category {
+        font-size: 14px;
+        letter-spacing: 2px;
+        color: #999;
+      }
+
+      .sec3Center h2 {
+        font-size: 52px;
+        font-weight: 300;
+        line-height: 1.25;
+        margin-bottom: 30px 0;
+      }
+
+      .sec3Center p {
+        font-size: 15px;
+        color: #777;
+        line-height: 1.8;
+      }
+      .sec3Center .fade {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+      .sec3Center .fade.on {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .sec3Row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        margin-bottom: 120px;
+      }
+      .sec3Row .item {
+        width: 32%;
+        height: 260px;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .productGrid.top {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        margin-bottom: 120px;
+      }
+
+      .productGrid.bottom {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        margin-top: 120px;
+      }
+
+      .item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+
+      .item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .item:hover img {
+        transform: scale(1.08);
+      }
+
+      .item span {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #fff;
+        font-size: 18px;
+        background: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .item:hover span {
+        opacity: 1;
+      }
+
+      .item.door {
+        grid-column: span 2;
+        height: 260px;
+      }
+
+      .item.middledoor {
+        grid-column: span 2;
+        height: 260px;
+      }
+
+      .item.sheet,
+      .item.board,
+      .item.sash,
+      .item.wood {
+        height: 240px;
+      }
+
+      footer {
+        background-color: #4b4444;
+        color: #999;
+        padding: 60px 0;
+      }
+
+      .footerWrap {
+        width: 85%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .footerlogo img {
+        width: 120px;
+      }
+
+      .footerBox {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 14px;
+      }
+
+      .footerBox2 {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <nav>
+        <div class="logo">
+          <img src="./img/woodinlogo.png" alt="logo" />
+        </div>
+        <div class="menus">
+          <button>WOODIN</button>
+          <button>PRODUCTS</button>
+          <button>SUPPORT</button>
+        </div>
+      </nav>
+    </div>
+    <section id="section1">
+      <div class="mainBox1">
+        <img src="./img/woodinmain.jpg" alt="main1img" />
+        <h2 class="mainText">
+          CREATING HEALING SPACE IS<br />
+          WOODIN HAUS STOP PRIORITY
+        </h2>
+      </div>
+    </section>
+    <div class="container">
+      <div id="modalBox" class="contents">
+        <div class="modalText">
+          <div>시공 리뷰 이벤트</div>
+          <h1>Review</h1>
+          <h1>Event</h1>
+          <h5>우딘HAUS제품으로 시공한 고객을 찾습니다!</h5>
+        </div>
+        <div class="modalhouse">
+          <img src="./img/pop.PNG" alt="modal" width="100%" height="60%" />
+          <div>
+            <button id="closeBtn">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section id="section2">
+      <div class="sec2outBox">
+        <div class="sec2leftBox">
+          <h4>BEST PRODUCT</h4>
+          <div class="titleGroup">
+            <h1>ECO-FRIENDLY AND</h1>
+            <h1>HIGH-QUALITY</h1>
+            <h1>PRODUCTS</h1>
+          </div>
+          <span class="line"></span>
+          <h3>우딘 HAUS는 건강한 공간을 위한<br />최선의 선택을 합니다.</h3>
+        </div>
+
+        <div class="sec2rightBox">
+          <div class="sec2Img">
+            <img src="./img/woodinsec2.jpg" alt="main1img" />
+            <div class="rightText">중문 | 제네로시리즈</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="section3">
+      <div class="sec3Wrap">
+        <div class="sec3Row">
+          <div class="item door">
+            <img src="./img/door.jpg" alt="도어" />
+            <span>도어</span>
+          </div>
+
+          <div class="sec3Center">
+            <span class="category fade">CATEGORY</span>
+            <h2 class="fade">
+              DESIGN FOR HEALTH<br />
+              AND WELL-BEING
+            </h2>
+            <p class="fade">
+              우딘은 건강한 공간을 만든다는 일념으로<br />
+              끊임없이 친환경 제품을 연구합니다.
+            </p>
+          </div>
+
+          <div class="item middledoor">
+            <img src="./img/middledoor.jpg" alt="중문" />
+            <span>중문</span>
+          </div>
+        </div>
+
+        <div class="productGrid bottom">
+          <div class="item sheet">
+            <img src="./img/sheet.jpg" alt="시트" /><span>시트</span>
+          </div>
+          <div class="item board">
+            <img src="./img/board.jpg" alt="보드" /><span>보드</span>
+          </div>
+          <div class="item sash">
+            <img src="./img/sash.jpg" alt="창호" /><span>창호</span>
+          </div>
+          <div class="item wood">
+            <img src="./img/wood.jpg" alt="우드" /><span>목재</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="footerWrap">
+        <div class="footerlogo">
+          <img src="./img/woodinlogo.png" alt="footerlogo" />
+        </div>
+
+        <div class="footerBox">
+          <div>
+            사업자등록번호 137.81.48926 | ADD 인천 서구 북항로 54 (원창동
+            381-118)
+          </div>
+          <div>TEL 032-583-0160 | FAX 032-583-0161</div>
+          <div>COPYRIGHT Ⓒ 2022 (주)우딘 RIGHTS RESERVED.</div>
+        </div>
+
+        <div class="footerBox2">개인정보보호정책 | 이메일무단수집거부</div>
+      </div>
+    </footer>
+
+    <script>
+      const modalBox = document.getElementById("modalBox");
+      const closeBtn = document.getElementById("closeBtn");
+
+      const sec1 = document.getElementById("section1");
+      const sec2 = document.getElementById("section2");
+      const sec3 = document.getElementById("section3");
+
+      const mainBox1 = document.querySelector(".mainBox1");
+      const mainText = document.querySelector(".mainText");
+      let mainBox1Top = mainBox1.offsetTop;
+      let sec2outBox = document.querySelector(".sec2outBox");
+
+      const sec2Img = document.querySelector(".sec2Img");
+      const sec2Texts = document.querySelectorAll(
+        ".sec2leftBox h4, .sec2leftBox h1, .sec2leftBox h3"
+      );
+
+      const sec3Texts = document.querySelectorAll("#section3 .fade");
+      const productCards = document.querySelectorAll("#section3 .item");
+
+      const navHeight = 70;
+
+      /* 초기 로드 */
+      window.addEventListener("DOMContentLoaded", () => {
+        mainBox1.classList.add("on");
+        mainText.classList.add("on");
+        modalBox.classList.add("on");
+        sec2outBox.classList.add("on");
+        sec2Img.classList.add("on");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        modalBox.classList.remove("on");
+      });
+
+      /* 스크롤 이벤트 */
+      function startScroll() {
+        const sy = window.scrollY;
+
+        const sec1T = sec1.offsetTop;
+        const sec2T = sec2.offsetTop;
+        const sec3T = sec3.offsetTop;
+
+        /* section1 */
+        if (sy >= sec1T - navHeight && sy < sec2T - navHeight) {
+          mainBox1.classList.add("on");
+          mainText.classList.add("on");
+        }
+
+        /* section2 */
+        if (sy >= sec2T - navHeight && sy < sec3T - navHeight) {
+          sec2Texts.forEach((el, idx) => {
+            el.style.transitionDelay = `${idx * 0.3}s`;
+            el.classList.add("on2");
+          });
+          sec2Img.classList.add("on2");
+        }
+
+        /* section3 TEXT */
+        if (sy >= sec3T - window.innerHeight / 1.2) {
+          sec3Texts.forEach((el, idx) => {
+            el.style.transitionDelay = `${idx * 0.3}s`;
+            el.classList.add("on");
+          });
+
+          productCards.forEach((card, idx) => {
+            card.style.transitionDelay = `${idx * 0.15}s`;
+            card.classList.add("on3");
+          });
+        } else {
+          sec3Texts.forEach((el) => {
+            el.classList.remove("on");
+            el.style.transitionDelay = "0s";
+          });
+
+          productCards.forEach((card) => {
+            card.classList.remove("on3");
+            card.style.transitionDelay = "0s";
+          });
+        }
+      }
+
+      window.addEventListener("scroll", startScroll);
+    </script>
+  </body>
+</html>
